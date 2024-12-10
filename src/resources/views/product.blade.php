@@ -6,17 +6,6 @@
 
 @section('title', 'COACHTECH')
 
-@section('button')
-<nav class="header-nav">
-    <!-- <form class="form_logout" action="/logout" method="post">
-        @csrf
-        <button class="header-nav__button">logout</button>
-    </form> -->
-    <a class="header-nav__link" href="/register">register</a>
-    <a class="header-nav__link" href="/login">login</a>
-</nav>
-@endsection
-
 @section('content')
 <div class="detail-page">
     <div class="detail">
@@ -27,13 +16,13 @@
         <button type="submit" class="">いいね
         </button>
     </form>
-    <form class="detail-form" action="/" method="post" enctype="multipart/form-data">
+    <form class="detail-form" action="{{ route('product.purchase', ['id'=>$product->id]) }}" method="post">
         @csrf
     <div class="detail-contents__upper">
         <input type="hidden" name="id" value="{{ $product['id'] }}"/>
         <div class="detail__figure">
             <figure id="existFigure" class="detail__figure-exist">
-                <img src="{{ $product['image'] }}" alt="">
+                <img src="{{ asset('storage/images/'. $product->image) }}" alt="">
             </figure>
             <figure id="figure" style="display:none">
                 <img id="figureImage">
@@ -44,9 +33,19 @@
                 <span>商品名</span>
                 <p>{{ $product['name'] }}</p>
             </div>
+            <div class="form__error">
+            @error('name')
+                {{ $message }}
+            @enderror
+            </div>
             <div class="edit-form__content">
                 <span>値段</span>
                 <p>{{ $product['price'] }}</p>
+            </div>
+            <div class="form__error">
+            @error('price')
+                {{ $message }}
+            @enderror
             </div>
         </div>
     </div>
@@ -57,6 +56,11 @@
         <span>商品説明</span>
         <p name="description" class="p-content">{{ $product['description'] }}</p>
     </div>
+    <div class="form__error">
+        @error('description')
+            {{ $message }}
+        @enderror
+    </div>
     <div class="edit-form__content">
         <span>商品の情報</span>
         <span>カテゴリー</span>
@@ -65,6 +69,11 @@
             <p>{{$category->name}}</p>
         </label>
         @endforeach
+        <div class="form__error">
+            @error('category_id')
+                {{ $message }}
+            @enderror
+        </div>
         <span>商品の状態</span>
             <?php
                 if ($product['condition_id'] == '1') {
@@ -79,18 +88,28 @@
                 echo '状態が悪い';
                 }
                 ?>
+        <div class="form__error">
+            @error('condition_id')
+                {{ $message }}
+            @enderror
+        </div>
     </div>
     </form>
     <form class="form" action="{{ route('product.comment', ['id'=>$product->id])}}" method="post">
         @csrf
         <span>コメント</span>
         <span>商品へのコメント</span>
-        @foreach ($comment->comments as $comment)
+        @foreach ($comments as $comment)
         <label class="seasons__content">
             <p>{{$comment->comment}}</p>
         </label>
         @endforeach
         <textarea name="comment" placeholder="コメントを入力" value="{{ old('comment') }}" ></textarea>
+        <div class="form__error">
+            @error('comment')
+                {{ $message }}
+            @enderror
+        </div>
         <button class="form__button-submit" type="submit">コメントを送信する</button>
     </form>
 </div>

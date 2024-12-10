@@ -26,6 +26,7 @@ class User extends Authenticatable
     public function products() {
         return $this->hasMany(Product::class);
     }
+
     public function likes()
     {
         return $this->belongsToMany(Product::class,'likes')->withTimestamps();;
@@ -34,5 +35,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->belongsToMany(Product::class,'comments')->withTimestamps();;
+    }
+
+    public function purchase()
+    {
+        return $this->belongsToMany(Product::class,'purchase')->withTimestamps();;
     }
 }

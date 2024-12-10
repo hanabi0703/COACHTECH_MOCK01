@@ -156,5 +156,12 @@ return [
             // 'window' => 0,
         ]),
     ],
+    'redirects' => [
+        // 'login' => null,
+        // 'logout' => null,
+        // 'password-confirmation' => null,
+        'register' => '/mypage/profile/register',
+        // 'email-verification' => null,
+    ],
 
 ];

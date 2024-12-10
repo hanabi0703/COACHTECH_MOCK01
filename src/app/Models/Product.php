@@ -25,4 +25,13 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
+
+    // public function conditions(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Condition::class)->withTimestamps()->withPivot('condition_id');
+    // }
+
+    public function conditions() {
+        return $this->belongsTo(Condition::class);
+    }
 }

@@ -5,10 +5,10 @@
 @endsection
 
 @section('button')
-<nav class="header-nav">
+<!-- <nav class="header-nav">
     <a class="header-nav__link" href="/register">register</a>
     <a class="header-nav__link" href="/login">login</a>
-</nav>
+</nav> -->
 @endsection
 
 @section('title', 'COACHTECH')
@@ -55,6 +55,7 @@
         <button class="form__button-submit" type="submit">ログイン</button>
         </div>
     </form>
+    <a class="header-nav__link" href="/register">会員登録はこちら</a>
     </div>
 </div>
 @endsection

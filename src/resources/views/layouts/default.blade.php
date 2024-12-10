@@ -11,8 +11,23 @@
 </head>
 <body>
   <header class="header">
-    <h1 class="title">@yield('title')</h1>
+    <a href="/">
+        <h1 class="title">@yield('title')</h1>
+    </a>
       @yield('button')
+    <nav class="header-nav">
+        <a class="header-nav__link" href="/login">ログイン</a>
+        <!-- <form action="/login" method="post">
+            @csrf
+            <button class="header-nav__link">ログイン</button>
+        </form> -->
+        <form action="/logout" method="post">
+            @csrf
+            <button class="header-nav__link">ログアウト</button>
+        </form>
+            <a class="header-nav__link" href="/mypage">マイページ</a>
+        <a class="header-nav__link" href="/sell">出品</a>
+    </nav>
   </header>
   <main>
     <div class="content">
