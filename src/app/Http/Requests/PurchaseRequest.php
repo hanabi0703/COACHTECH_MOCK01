@@ -24,16 +24,20 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
     return [
-        'payment' => 'required|email',
-        // 'password' => 'required|min:8'
+        'payment' => 'required',
+        'post_code' => 'required',
+        'address' => 'required',
+        'building' => 'required'
     ];
     }
 
     public function messages()
     {
     return [
-        'payment.required' => '支払い方法を入力してください',
-        // 'password.required' => 'パスワードを入力してください',
+        'payment.required' => '支払い方法を選択してください',
+        'post_code.required' => '配送先を設定してください',
+        'address.required' => '配送先を設定してください',
+        'building.required' => '配送先を設定してください'
     ];
     }
 }

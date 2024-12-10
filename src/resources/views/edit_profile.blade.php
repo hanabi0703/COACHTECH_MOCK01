@@ -15,13 +15,15 @@
     <div class="edit__heading">
         <h2>プロフィール設定</h2>
     </div>
-    <form class="detail-form" action="{{ route('profile.update') }}" method="post">
+    <form class="detail-form" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
         @csrf
     <div class="edit-contents__upper">
         <input type="hidden" name="id" value="{{ $user['id'] }}"/>
-        <div class="edit__figure">
             <figure id="existFigure" class="edit__figure-exist">
-                <img src="" alt="">
+                <img src="{{ asset('storage/images/'. $profile->image) }}" alt="">
+            </figure>
+            <figure id="figure" style="display:none">
+                <img id="figureImage">
             </figure>
             <input id="input" type="file" name="image" value="{{ $profile['image'] }}"/>
             <div class="form__error">

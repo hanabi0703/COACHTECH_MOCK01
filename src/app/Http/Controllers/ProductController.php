@@ -22,8 +22,7 @@ class ProductController extends Controller
 {
     public function index(){
         $products = Product::all();
-        $likes = Like::where('likes.user_id','=', Auth::id())->join('products' ,'likes.product_id' ,'=', 'products.id')->get();
-        Log::debug($likes);
+        $likes = Like::where('likes.user_id','=', Auth::id())->join('products' ,'likes.product_id' ,'=', 'products.id')->get(); //Likes中間テーブルに基づいて商品テーブルから取得する
         return view('/index', compact('products', 'likes'));
     }
 
@@ -34,19 +33,7 @@ class ProductController extends Controller
     }
 
     public function addProduct(ExhibitionRequest $request){
-
-
-        // $product = [
-        //     'condition_id' => $request->condition_id,
-        //     'name' => $request->name,
-        //     'price' => $request->price,
-        //     'image' => $request->image,
-        //     'description' => $request->description,
-        //     'user_id' => $request->user()->id,
-        //     'is_sold_out' => '0'
-        // ];
-        // $product = Product::create($product);
-
+        Log::debug($request);
         $product = new Product();
         $product->name = $request->name;
         $product->price = $request->price;
@@ -59,12 +46,6 @@ class ProductController extends Controller
         $product->condition_id = $request->condition_id;
         $product-> is_sold_out = '0';
         $product->save();
-
-        // $products = Product::all();
-        // $product->categories()->sync($request->category_ids);
-        // $likes = Like::where('likes.user_id','=', Auth::id())->join('products' ,'likes.product_id' ,'=', 'products.id')->get();
-        // Log::debug($request);
-        // return view('/index', compact('products', 'likes'));
         return redirect('/');
     }
 
@@ -96,7 +77,7 @@ class ProductController extends Controller
         return view('/purchase', compact('product', 'user', 'profile'));
     }
 
-    public function buy(Request $request){
+    public function buy(PurchaseRequest $request){
         // $user = User::find($request->user()->id);
         $purchase = new Purchase(); //purchaseテーブルを操作するのと同義となる
         $purchase->payment = $request->payment;

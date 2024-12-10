@@ -19,8 +19,9 @@ class ProfileController extends Controller
         $user = Auth::user();
         $products = Product::where('user_id','=', $user->id)->get();
         $purchases = Purchase::where('purchases.user_id','=', $user->id)->join('products' ,'purchases.product_id' ,'=', 'products.id')->get();
+        $profile = Profile::where('user_id','=', $user->id)->first();
         //内部結合によってpurchaseテーブルにproductテーブルを結合して取得
-        return view('/profile', compact('user', 'products', 'purchases'));
+        return view('/profile', compact('user', 'products', 'purchases', 'profile'));
     }
 
     public function registerProfile()
@@ -40,17 +41,17 @@ class ProfileController extends Controller
 
     public function updateProfile(AddressRequest $request)
     {
-        $form = $request->all();
-        Log::debug($request->id);
-        unset($form['_token']);
-        // if($request->image){
-        // $image_path = $request->file('image')->store('public/images');
-        // $form['image'] = basename($image_path);
-        // }
-        Profile::where('user_id','=', $request->id)->first()->update($form);
-        $user = Auth::user();
-        $products = Product::where('user_id','=', $user->id)->get();
-        $purchases = Purchase::where('purchases.user_id','=', $user->id)->join('products' ,'purchases.product_id' ,'=', 'products.id')->get();
-        return view('/profile', compact('user', 'products', 'purchases'));
+        // Log::debug($request);
+        $form = Profile::where('user_id','=', $request->id)->first();
+        $form->name = $request->name;
+        if($request->image){
+            $image_path = $request->file('image')->store('public/images');
+            $form->image = basename($image_path);
+        }
+        $form->post_code = $request->post_code;
+        $form->address = $request->address;
+        $form->building = $request->building;
+        $form->save();
+        return redirect('/mypage');
     }
 }

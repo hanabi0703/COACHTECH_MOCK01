@@ -23,7 +23,6 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-    
     return [
         'image' => 'mimes:jpg,png'
     ];
@@ -34,5 +33,5 @@ class ProfileRequest extends FormRequest
     return [
         'image.mimes' => '商品画像は.jpgか.pngで登録してください'
     ];
-  }
+    }
 }

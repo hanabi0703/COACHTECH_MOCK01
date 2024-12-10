@@ -22,6 +22,7 @@
             </figure>
         </div>
         <div class="edit-form__contents">
+            <img src="{{ asset('storage/images/'. $profile->image) }}" alt="">
             <div class="edit-form__content">
                 <p>{{ $user['name'] }}</p>
             </div>
