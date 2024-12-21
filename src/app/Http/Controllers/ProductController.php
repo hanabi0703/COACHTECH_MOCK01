@@ -71,7 +71,6 @@ class ProductController extends Controller
     public function editAddress(Request $request){
         $product = Product::find($request->id);
         $user = User::find($request->user()->id);
-        // Log::debug($user);
         return view('edit_address', compact('product', 'user'));
     }
 
@@ -115,9 +114,13 @@ class ProductController extends Controller
         $categories = Category::all();
         $likeCount = Like::where('product_id', $request->id)->count();
         $commentCount = Comment::where('comments.product_id','=', $request->id)->count();
-        $user = User::find($request->user()->id);
-        $isLiked = $user->likes()->where('product_id', $request->id)->exists();
-
+        if(Auth::user()) {
+            $user = Auth::id();
+            $isLiked = $user->likes()->where('product_id', $request->id)->exists();
+        }
+        else {
+            $isLiked = '';
+        }
         Log::debug($isLiked);
         return view('product', compact('product', 'categories', 'comments', 'likeCount', 'commentCount','isLiked'));
     }
@@ -131,20 +134,7 @@ class ProductController extends Controller
         else {
         $user->likes()->attach($request->id);
         }
-        Log::debug($isLiked);
-
-        // $product = Product::find($request->id);
-        // $comments = Comment::where('product_id','=', $request->id)->get();
-        // $comments = Comment::where('comments.product_id','=', $request->id)->join('profiles' ,'comments.user_id' ,'=', 'profiles.user_id')->get();
-        // $categories = Category::all();
-        // $likeCount = Like::where('product_id', $request->id)->count();
-        // $commentCount = Comment::where('comments.product_id','=', $request->id)->count();
-        // return back();
-        // return back()->with('isLiked',$isLiked);
-    //    return view('product', compact('product', 'categories', 'comments', 'likeCount', 'commentCount'))->with('isLiked',$isLiked);
-    return redirect()->route('product.detail', [
-    'id' => $request->id, // ルートパラメータ
-]);
+        return redirect()->route('product.detail', ['id' => $request->id]);
     }
 
 public function comment(CommentRequest $request)

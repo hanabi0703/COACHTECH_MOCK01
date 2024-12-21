@@ -20,7 +20,10 @@ class UsersTableSeeder extends Seeder
         $param = [
             'name' => 'テスト人間',
             'email' => 'test@test.com',
-            'password' => 'password'
+            'password' => 'password',
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime
+            (),
         ];
         DB::table('users')->insert($param);
     }
