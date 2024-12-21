@@ -21,50 +21,26 @@ use App\Http\Controllers\ProfileController;
 // });
 
 Route::get('/', [ProductController::class, 'index']);
-// Route::get('/', [ProductController::class, 'index']);
-
-// Route::post('/register', [AuthController::class, 'register']);
-
-
-
-// Route::post('/login', [AuthController::class, 'login']);
+Route::get('/products/search', [ProductController::class, 'search']);
 
 Route::get('/item/{id}', [ProductController::class, 'productDetail'])->name('product.detail');
+
 Route::middleware('auth')->group(function () {
-Route::post('/purchase/{id}', [ProductController::class, 'purchase'])->name('product.purchase');
-});
-Route::middleware('auth')->group(function () {
-Route::get('/purchase/address/{id}', [ProductController::class, 'editAddress'])->name('purchase.address');
-});
-Route::middleware('auth')->group(function () {
-Route::post('/purchase/updateAddress/{id}', [ProductController::class, 'updateAddress'])->name('purchase.updateAddress');
-});
-Route::middleware('auth')->group(function () {
-Route::post('/buy', [ProductController::class, 'buy']);
-});
-Route::middleware('auth')->group(function () {
-Route::get('/sell', [ProductController::class, 'sell']);
-});
-Route::middleware('auth')->group(function () {
-Route::post('/sell', [ProductController::class, 'addProduct']);
+    Route::get('/purchase/address/{id}', [ProductController::class, 'editAddress'])->name('purchase.address');
+    Route::post('/purchase/{id}',
+    [ProductController::class, 'updateAddress'])->name('product.purchase');
+    Route::get('/purchase/{id}',
+    [ProductController::class, 'purchase'])->name('product.purchase');
+    Route::post('/buy', [ProductController::class, 'buy']);
+    Route::get('/sell', [ProductController::class, 'sell']);
+    Route::post('/sell', [ProductController::class, 'addProduct']);
+
+    Route::post('/product/{id}/like', [ProductController::class, 'like'])->name('product.like');
+    Route::post('/product/{id}/comment', [ProductController::class, 'comment'])->name('product.comment');
+
+    Route::get('/mypage', [ProfileController::class, 'mypage']);
+    Route::get('/mypage/profile', [ProfileController::class, 'profile']);
+    Route::post('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/mypage/profile/register', [ProfileController::class, 'registerProfile']);
 });
 
-// Route::post('/product/comment', [ProductController::class, 'addComment'])->name('product.comment');
-Route::middleware('auth')->group(function () {
-Route::post('/product/{id}/like', [ProductController::class, 'like'])->name('product.like');
-});
-Route::middleware('auth')->group(function () {
-Route::post('/product/{id}/comment', [ProductController::class, 'comment'])->name('product.comment');
-});
-Route::middleware('auth')->group(function () {
-Route::get('/mypage', [ProfileController::class, 'mypage']);
-});
-Route::middleware('auth')->group(function () {
-Route::get('/mypage/profile', [ProfileController::class, 'profile']);
-});
-Route::middleware('auth')->group(function () {
-Route::post('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
-});
-Route::middleware('auth')->group(function () {
-Route::get('/mypage/profile/register', [ProfileController::class, 'registerProfile']);
-});

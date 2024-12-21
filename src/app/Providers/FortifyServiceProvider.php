@@ -13,6 +13,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\LogoutResponse;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -30,8 +34,24 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Fortify::createUsersUsing(CreateNewUser::class);
+
         Fortify::registerView(function () {
             return view('auth.register');
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            // カスタム LoginRequest を利用
+            $validated = app(LoginRequest::class)->merge($request->all())->validated();
+
+            $user = \App\Models\User::where('email', $validated['email'])->first();
+
+            if ($user && Hash::check($validated['password'], $user->password)) {
+                return $user;
+            }
+
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'email' => 'ログイン情報が登録されていません',
+            ]);
         });
 
         Fortify::loginView(function () {

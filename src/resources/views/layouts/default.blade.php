@@ -11,23 +11,31 @@
 </head>
 <body>
   <header class="header">
-    <a href="/">
-        <h1 class="title">@yield('title')</h1>
-    </a>
-      @yield('button')
-    <nav class="header-nav">
-        <a class="header-nav__link" href="/login">ログイン</a>
-        <!-- <form action="/login" method="post">
-            @csrf
-            <button class="header-nav__link">ログイン</button>
-        </form> -->
-        <form action="/logout" method="post">
-            @csrf
-            <button class="header-nav__link">ログアウト</button>
-        </form>
-            <a class="header-nav__link" href="/mypage">マイページ</a>
-        <a class="header-nav__link" href="/sell">出品</a>
-    </nav>
+    <div class="header__contents">
+      <a href="/">
+          <div class="logo__svg" style="background-image: url('{{ asset('storage/images/logo.svg') }}')">
+          </div>
+      </a>
+        @yield('button')
+      <form action="/logout" method="post">
+        @csrf
+        <nav class="header-nav">
+            <ul class="header-ul">
+              <?php
+              if(Auth::check()) {
+                echo '<li class="header-li">
+                    <button class="header-nav__link">ログアウト</button></li>';
+              }
+              else {
+                echo '<li class="header-li"><a class="header-nav__link" href="/login">ログイン</a></li>';
+              }
+              ?>
+                <li class="header-li"><a class="header-nav__link" href="/mypage">マイページ</a></li>
+                <li class="header-li header-li-purchase"><a class="header-nav__link" href="/sell">出品</a></li>
+            </ul>
+        </nav>
+      </form>
+    </div>
   </header>
   <main>
     <div class="content">

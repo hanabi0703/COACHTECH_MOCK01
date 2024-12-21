@@ -29,6 +29,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = new Profile();
         $profile->user_id = $user->id;
+        $profile->image = 'default_icon.png';
         return view('/edit_profile', compact('user', 'profile'));
     }
 
@@ -41,10 +42,20 @@ class ProfileController extends Controller
 
     public function updateProfile(AddressRequest $request)
     {
-        // Log::debug($request);
-        $form = Profile::where('user_id','=', $request->id)->first();
+        Log::debug($request);
+        if(Profile::where('user_id','=', $request->id)->first()){
+            $form = Profile::where('user_id','=', $request->id)->first();
+        }
+        else {
+            $form = new Profile();
+            $form->user_id = $request->id;
+            if(empty($request->image)) {
+                $form->image = 'default_icon.png';
+            }
+        }
+        Log::debug($form);
         $form->name = $request->name;
-        if($request->image){
+        if(!empty($request->image)) {
             $image_path = $request->file('image')->store('public/images');
             $form->image = basename($image_path);
         }

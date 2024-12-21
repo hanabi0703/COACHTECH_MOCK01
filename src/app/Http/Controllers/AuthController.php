@@ -4,18 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
     //
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
         return view('register');
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         return view('login');
     }

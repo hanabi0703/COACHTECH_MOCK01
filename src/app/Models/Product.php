@@ -12,6 +12,13 @@ class Product extends Model
 
     protected $fillable = ['name', 'price', 'image', 'description', 'is_sold_out'];
 
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->withTimestamps()->withPivot('category_id');

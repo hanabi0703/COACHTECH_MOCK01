@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Log;
+
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -19,17 +22,17 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique(User::class),
-            ],
-            'password' => $this->passwordRules(),
-        ])->validate();
+        // Log::debug($input);
+        // try {
+        $validated = app(RegisterRequest::class)->merge($input)->validated();
+        // } catch (\Illuminate\Validation\ValidationException $e) {
+        //     Log::error($e->errors()); // エラーメッセージをログに出力
+        // }
+
+        // app(RegisterRequest::class);
+        // Log::debug($request->rules());
+        // Log::debug($request->validated());
+        // Log::debug($input);
 
         return User::create([
             'name' => $input['name'],
