@@ -2,15 +2,17 @@
 
 ## Dockerビルド
 ```
-git clone
+git clone https://github.com/hanabi0703/COACHTECH_MOCK01.git
 ```
+
+docker-compose.ymlファイルの存在する階層へ移動し以下を実行
 ```
 docker compose up -d --build
 ```
 
 ## Laravel 環境構築
 ```
-dockrer compose exec php bash
+docker compose exec php bash
 ```
 ```
 composer install
