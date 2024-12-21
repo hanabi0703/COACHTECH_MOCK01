@@ -115,9 +115,13 @@ class ProductController extends Controller
         $categories = Category::all();
         $likeCount = Like::where('product_id', $request->id)->count();
         $commentCount = Comment::where('comments.product_id','=', $request->id)->count();
-        $user = User::find($request->user()->id);
-        $isLiked = $user->likes()->where('product_id', $request->id)->exists();
-
+        if(Auth::user()) {
+            $user = Auth::id();
+            $isLiked = $user->likes()->where('product_id', $request->id)->exists();
+        }
+        else {
+            $isLiked = '';
+        }
         Log::debug($isLiked);
         return view('product', compact('product', 'categories', 'comments', 'likeCount', 'commentCount','isLiked'));
     }
