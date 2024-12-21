@@ -37,6 +37,22 @@
     margin-left: 30px;
 }
 
+.edit__profile-input-label {
+    display: block;
+    font-size: 16px;
+    color: #ff5555;
+    margin: auto;
+    margin-left: 30px;
+    border: solid #ff5555 2px;
+    border-radius: 10px;
+    padding: 5px 25px;
+    cursor: pointer;
+}
+
+.edit__profile-input-label input {
+    display: none;
+}
+
 .edit-form__content {
     display: flex;
     flex-direction: column;

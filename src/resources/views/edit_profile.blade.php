@@ -24,7 +24,10 @@
                 <figure id="figure" style="display:none">
                     <img id="figureImage">
                 </figure>
+                <label class="edit__profile-input-label">
+                画像を選択する
                 <input id="input" type="file" name="image" value="{{ $profile->image }}"/>
+                </label>
                 <div class="form__error">
                     @error('image')
                         {{ $message }}
