@@ -1,0 +1,48 @@
+# 環境構築
+
+## Dockerビルド
+```
+git clone
+```
+```
+docker compose up -d --build
+```
+
+## Laravel 環境構築
+```
+dockrer compose exec php bash
+```
+```
+composer install
+```
+```
+cp .env.example .env
+```
+※環境変数は適宜変更
+```
+php artisan key:generate
+```
+
+```
+php artisan migrate
+```
+
+```
+php artisan db:seed
+```
+
+## 開発環境
+・商品一覧画面:http://localhost/
+
+・ユーザー登録:http://localhost/register
+
+・phpMyAdmin:http://localhost:8080/
+
+## 使用技術(実行環境)
+・PHP 7.4.9
+・Laravel 8.83.27
+・MySQL 8.0.26
+・nginx 1.21.1
+
+## ER図
+![MockCase01](https://github.com/user-attachments/assets/d86f4e48-efbd-47b1-97b3-80608ee2d946)
