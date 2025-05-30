@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
 @endsection
 
+@section('js')
+    <script type="text/javascript" src="{{ asset('js/purchase.js') }}"></script>
+@endsection
+
+
 @section('content')
 <div class="purchase__content">
     <form class="purchase-form" action="/buy" method="post" enctype="multipart/form-data">
@@ -23,7 +28,7 @@
             <div class="purchase__title">
                 <h3>支払い方法</h3>
             </div>
-            <select class="purchase__content__payment" name="payment" value="選択してください">
+            <select class="purchase__content__payment" name="payment" value="選択してください" id="payment">
                 <option value="1">コンビニ払い</option>
                 <option value="2">カード払い</option>
             </select>
@@ -52,7 +57,12 @@
         <div class="purchase__display__content">
             <div class="purchase__display">
                 <span>支払い方法</span>
-                <p>{{ $product['payment'] }}</p>
+                <div id="Box1">
+                    <p>one</p>
+                </div>
+                <div id="Box2" style="display: none;">
+                    <p>two</p>
+                </div>
             </div>
     </div>
     <button class="form__button-submit" type="submit">購入する</button>
