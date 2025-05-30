@@ -14,8 +14,6 @@ class ConditionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('conditions')->delete();
-
         DB::statement('ALTER TABLE conditions AUTO_INCREMENT = 1');
         
         $param = [

@@ -15,8 +15,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table('users')->delete();
         $param = [
             'name' => 'テスト人間',
             'email' => 'test@test.com',

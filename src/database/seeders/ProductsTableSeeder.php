@@ -14,8 +14,6 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->delete();
-
         DB::statement('ALTER TABLE products AUTO_INCREMENT = 1');
         $param = [
             ['name' => '腕時計',

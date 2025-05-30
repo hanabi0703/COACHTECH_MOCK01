@@ -14,8 +14,6 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->delete();
-
         DB::statement('ALTER TABLE categories AUTO_INCREMENT = 1');
         
         $param = [
