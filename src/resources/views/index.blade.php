@@ -60,7 +60,18 @@
                 <li>
                     <a href="{{ route('product.detail', ['id'=>$like->id]) }}" class="product-list__link">
                     <div class="products-list__item">
-                        <img src="{{ asset('storage/images/'. $like->image) }}" alt="">
+                        <img src="{{ asset('storage/images/'. $like->image) }}" class="
+                        <?php
+                        if ($like['is_sold_out'] == '1') {
+                        echo 'blur';
+                        }
+                        ?>
+                        "alt="">
+                        <?php
+                        if ($like['is_sold_out'] == '1') {
+                        echo '<p class="product__sold">Sold</p>';
+                        }
+                        ?>
                         <div class="products-list_text">
                             <span class="">{{$like->name}}</span>
                         </div>
