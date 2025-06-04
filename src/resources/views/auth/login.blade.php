@@ -19,7 +19,7 @@
         <h2>ログイン</h2>
     </div>
     <div class="login__content">
-    <form class="form"  action="{{ route('login')}}" method="post">
+    <form class="form"  action="{{ route('login')}}" method="post" novalidate>
         @csrf
         <div class="form__group">
             <div class="form__group-title">
