@@ -58,10 +58,10 @@
             <div class="purchase__display">
                 <span>支払い方法</span>
                 <div id="Box1">
-                    <p>one</p>
+                    <p>コンビニ払い</p>
                 </div>
                 <div id="Box2" style="display: none;">
-                    <p>two</p>
+                    <p>カード払い</p>
                 </div>
             </div>
     </div>

@@ -59,7 +59,6 @@
             </div>
         </div>
     <form class="purchase-form" action="{{ route('product.purchase', ['id'=>$product->id]) }}" method="get">
-        @csrf
         <div class="detail-form__button">
             <button class="form__button-submit" type="submit">購入手続きへ</button>
         </div>

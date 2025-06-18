@@ -10,7 +10,6 @@
 
 @section('button')
     <form class="search-form" action="/products/search" method="get">
-    @csrf
         <div class="search-form__item">
             <input class="search-form__item-input" type="text" name="keyword" value="{{ old('keyword') }}">
         </div>
@@ -46,7 +45,7 @@
                         }
                         ?>
                         <div class="products-list_text">
-                            <span class="">{{$product->name}}</span>
+                            <span>{{$product->name}}</span>
                         </div>
                     </div>
                     </a>
@@ -73,7 +72,7 @@
                         }
                         ?>
                         <div class="products-list_text">
-                            <span class="">{{$like->name}}</span>
+                            <span>{{$like->name}}</span>
                         </div>
                     </div>
                     </a>
